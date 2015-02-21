@@ -1,0 +1,12 @@
+/* line 4, ../sass/style.scss */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+/* line 6, ../sass/style.scss */
+body p {
+  color: #000;
+}
+/* line 10, ../sass/style.scss */
+body .error {
+  color: #ff0000;
+}

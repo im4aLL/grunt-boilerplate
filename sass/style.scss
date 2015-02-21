@@ -1,0 +1,13 @@
+$color: #000;
+$red: #ff0000;
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    p {
+        color: $color;
+    }
+
+    .error {
+        color: $red;
+    }
+}

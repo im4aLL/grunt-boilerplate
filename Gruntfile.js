@@ -1,13 +1,26 @@
+'use strict';
+
 var config = {};
 var tasks = {};
 
-tasks.concat = {
-    'name': 'grunt-contrib-concat',
-    'key': 'concat',
+// tasks.concat = {
+//     'name': 'grunt-contrib-concat',
+//     'key': 'concat',
+//     'settings': {
+//         build: {
+//             src: 'css-js/js/{,*/}*.js',
+//             dest: 'css-js/main.js'
+//         }
+//     },
+//     'type': 'build'
+// };
+
+tasks.browserify = {
+    'name': 'grunt-browserify',
+    'key': 'browserify',
     'settings': {
         build: {
-            src: 'css-js/js/{,*/}*.js',
-            dest: 'css-js/main.js'
+            files : { 'css-js/main.js' : ['css-js/js/app.js'] }
         }
     },
     'type': 'build'
@@ -44,6 +57,25 @@ tasks.sass = {
     'type': 'build'
 };
 
+tasks.autoprefixer = {
+    'name': 'grunt-autoprefixer',
+    'key': 'autoprefixer',
+    'settings': {
+        build: {
+            options: {
+                browsers: ['last 3 version', 'ie 9', 'ie 10', 'ie 11']
+            },
+            files: [{
+                expand: true,
+                flatten: true,
+                src: 'css-js/css/{,*/}*.css',
+                dest: 'css-js/css/'
+            }]
+        }
+    },
+    'type': 'build'
+};
+
 tasks.cssmin = {
     'name': 'grunt-contrib-cssmin',
     'key': 'cssmin',
@@ -57,22 +89,39 @@ tasks.cssmin = {
     'type': 'build'
 };
 
+tasks.jshint = {
+    'name': 'grunt-contrib-jshint',
+    'key': 'jshint',
+    'settings': {
+        build: {
+            options: {
+                jshintrc: true,
+                force: true
+            },
+            files: {
+                src: ['css-js/js/{,*/}*.js']
+            }
+        }
+    },
+    'type': 'build'
+};
+
 tasks.watch = {
     'name': 'grunt-contrib-watch',
     'key': 'watch',
     'settings': {
         scripts: {
             files: ['css-js/js/{,*/}*.js'],
-            tasks: ['concat', 'uglify'],
+            tasks: ['jshint', 'browserify', 'uglify'],
             options: {
-                spawn: false,
+                spawn: false
             }
         },
         sass: {
             files: ['css-js/sass/{,*/}*.scss'],
-            tasks: ['sass', 'cssmin'],
+            tasks: ['sass', 'autoprefixer', 'cssmin'],
             options: {
-                spawn: false,
+                spawn: false
             }
         }
     },
@@ -92,8 +141,12 @@ for (var key in tasks) {
         }
     }
 
-    if( obj.type == 'build' ) buildArray.push(obj.key);
-    else if( obj.type == 'default' ) defaultArray.push(obj.key);
+    if( obj.type === 'build' ) {
+        buildArray.push(obj.key);
+    }
+    else if( obj.type === 'default' ) {
+        defaultArray.push(obj.key);
+    }
 
     loadTasksArray.push(obj.name);
 }

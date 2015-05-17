@@ -1,0 +1,16 @@
+{
+  "name": "grunt-boilerplate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/im4aLL/grunt-boilerplate",
+  "authors": [
+    "Habib Hadi <me@habibhadi.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.3"
+  }
+}
